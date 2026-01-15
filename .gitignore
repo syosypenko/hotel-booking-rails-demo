@@ -1,0 +1,39 @@
+# Logs
+*.log
+log/
+
+# Database
+db/*.sqlite3
+db/*.sqlite3-journal
+db/*.sqlite
+
+# Dependency directories
+.bundle/
+vendor/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Rails
+tmp/
+public/assets/
+.sass-cache/
+
+# Node (if using Node for assets)
+node_modules/
+
+# Docker
+.dockerignore

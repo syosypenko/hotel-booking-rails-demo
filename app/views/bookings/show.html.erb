@@ -1,0 +1,85 @@
+<div class="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
+  <!-- Header -->
+  <header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <h1 class="text-3xl font-bold text-gray-900">✅ Booking Confirmed</h1>
+    </div>
+  </header>
+
+  <!-- Confirmation Content -->
+  <main class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-white rounded-lg shadow-lg p-8">
+      <div class="text-center mb-8">
+        <div class="text-6xl mb-4">🎉</div>
+        <h2 class="text-2xl font-bold text-gray-900">Thank you, <%= @booking.guest_name %>!</h2>
+        <p class="text-gray-600 mt-2">Your booking has been confirmed.</p>
+      </div>
+
+      <div class="border-t-2 border-b-2 border-gray-200 py-8 space-y-6">
+        <!-- Booking Details -->
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <p class="text-sm text-gray-600 font-semibold">ROOM</p>
+            <p class="text-lg text-gray-900"><%= @room.name %></p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 font-semibold">PRICE PER NIGHT</p>
+            <p class="text-lg text-gray-900">$<%= @room.price_per_night %></p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 font-semibold">CHECK-IN</p>
+            <p class="text-lg text-gray-900"><%= @booking.check_in.strftime('%B %d, %Y') %></p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 font-semibold">CHECK-OUT</p>
+            <p class="text-lg text-gray-900"><%= @booking.check_out.strftime('%B %d, %Y') %></p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 font-semibold">NIGHTS</p>
+            <p class="text-lg text-gray-900"><%= (@booking.check_out - @booking.check_in).to_i %></p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 font-semibold">CONFIRMATION #</p>
+            <p class="text-lg text-gray-900 font-mono">#<%= @booking.id %></p>
+          </div>
+        </div>
+
+        <!-- Total -->
+        <div class="bg-blue-50 p-4 rounded-lg">
+          <div class="flex justify-between items-center">
+            <p class="text-lg font-semibold text-gray-900">Total Price:</p>
+            <p class="text-3xl font-bold text-blue-600">$<%= @booking.total_price %></p>
+          </div>
+        </div>
+
+        <!-- Guest Info -->
+        <div>
+          <p class="text-sm text-gray-600 font-semibold">GUEST EMAIL</p>
+          <p class="text-gray-900"><%= @booking.guest_email %></p>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="mt-8 space-y-4">
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+          <p class="text-sm text-blue-900">
+            📧 A confirmation email has been sent to <strong><%= @booking.guest_email %></strong>
+          </p>
+        </div>
+
+        <div class="flex gap-4">
+          <%= link_to 'Back to Home', root_path, class: 'flex-1 bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition text-center' %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Voice AI Integration Info -->
+    <div class="mt-8 bg-white rounded-lg shadow p-6">
+      <h3 class="text-lg font-bold text-gray-900 mb-3">🎙️ Voice AI Integration</h3>
+      <p class="text-gray-600 text-sm">
+        This booking was confirmed through the Hotel Booking system. 
+        Voice AI assistants can integrate with our clean JSON APIs to automate this booking flow entirely through voice conversation.
+      </p>
+    </div>
+  </main>
+</div>

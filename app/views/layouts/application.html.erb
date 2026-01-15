@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hotel Booking | Voice AI Demo</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", media: "all" %>
+  </head>
+
+  <body class="bg-gray-50">
+    <header class="bg-white shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center">
+            <h1 class="text-xl font-semibold text-gray-800">Grand Plaza — Demo</h1>
+            <span class="ml-3 text-sm text-gray-500">Voice AI demo</span>
+          </div>
+          <nav class="hidden md:flex gap-6 text-sm text-gray-600">
+            <a href="#rooms" class="hover:text-gray-900">Rooms</a>
+            <a href="#booking" class="hover:text-gray-900">Book</a>
+            <a href="/api/rooms" class="hover:text-gray-900">API</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="min-h-screen">
+      <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <%= yield %>
+      </div>
+    </main>
+  </body>
+</html>
