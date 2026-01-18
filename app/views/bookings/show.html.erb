@@ -1,85 +1,225 @@
-<div class="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
-  <!-- Header -->
-  <header class="bg-white shadow">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      <h1 class="text-3xl font-bold text-gray-900">✅ Booking Confirmed</h1>
-    </div>
-  </header>
+<style>
+  .confirmation-page { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); }
+  .confirmation-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    border: 1px solid #e2e8f0;
+  }
+  .success-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+    border-radius: 12px;
+    margin-bottom: 2rem;
+  }
+  .success-icon { font-size: 3rem; }
+  .success-text h2 { font-size: 2rem; font-weight: 700; color: #0f172a; }
+  .success-text p { color: #64748b; margin-top: 0.5rem; }
+  .details-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .detail-item {
+    display: flex;
+    flex-direction: column;
+  }
+  .detail-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+  }
+  .detail-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .detail-subtext {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-top: 0.25rem;
+  }
+  .price-box {
+    background: linear-gradient(135deg, #e0e7ff, #dbeafe);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .price-label {
+    font-weight: 600;
+    color: #0f172a;
+  }
+  .price-value {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #4f46e5;
+  }
+  .info-box {
+    background: #e0e7ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .info-box-icon { font-size: 1.5rem; }
+  .info-box-text { color: #1e1b4b; font-size: 0.875rem; }
+  .actions-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 2rem;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #4f46e5, #4338ca);
+    color: white;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(79, 70, 229, 0.3);
+  }
+  .btn-secondary {
+    background: #f1f5f9;
+    color: #0f172a;
+    border: 1px solid #cbd5e1;
+  }
+  .btn-secondary:hover {
+    background: #e2e8f0;
+  }
+  .confirmation-number {
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #4f46e5;
+    margin: 1.5rem 0;
+  }
+</style>
 
-  <!-- Confirmation Content -->
-  <main class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="bg-white rounded-lg shadow-lg p-8">
-      <div class="text-center mb-8">
-        <div class="text-6xl mb-4">🎉</div>
-        <h2 class="text-2xl font-bold text-gray-900">Thank you, <%= @booking.guest_name %>!</h2>
-        <p class="text-gray-600 mt-2">Your booking has been confirmed.</p>
+<div class="confirmation-page min-h-screen py-12 px-6">
+  <div class="max-w-3xl mx-auto">
+    <!-- Success Banner -->
+    <div class="success-banner">
+      <div class="success-icon">🎉</div>
+      <div class="success-text">
+        <h2>Thank You!</h2>
+        <p>Your booking is confirmed</p>
+      </div>
+    </div>
+
+    <!-- Confirmation Card -->
+    <div class="confirmation-card">
+      <!-- Greeting -->
+      <div style="padding: 2rem; text-align: center; border-bottom: 1px solid #e2e8f0;">
+        <div style="font-size: 1.125rem; color: #64748b;">Hello,</div>
+        <div style="font-size: 2rem; font-weight: 700; color: #0f172a; margin-top: 0.25rem;"><%= @booking.guest_name %> 👋</div>
       </div>
 
-      <div class="border-t-2 border-b-2 border-gray-200 py-8 space-y-6">
-        <!-- Booking Details -->
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <p class="text-sm text-gray-600 font-semibold">ROOM</p>
-            <p class="text-lg text-gray-900"><%= @room.name %></p>
-          </div>
-          <div>
-            <p class="text-sm text-gray-600 font-semibold">PRICE PER NIGHT</p>
-            <p class="text-lg text-gray-900">$<%= @room.price_per_night %></p>
-          </div>
-          <div>
-            <p class="text-sm text-gray-600 font-semibold">CHECK-IN</p>
-            <p class="text-lg text-gray-900"><%= @booking.check_in.strftime('%B %d, %Y') %></p>
-          </div>
-          <div>
-            <p class="text-sm text-gray-600 font-semibold">CHECK-OUT</p>
-            <p class="text-lg text-gray-900"><%= @booking.check_out.strftime('%B %d, %Y') %></p>
-          </div>
-          <div>
-            <p class="text-sm text-gray-600 font-semibold">NIGHTS</p>
-            <p class="text-lg text-gray-900"><%= (@booking.check_out - @booking.check_in).to_i %></p>
-          </div>
-          <div>
-            <p class="text-sm text-gray-600 font-semibold">CONFIRMATION #</p>
-            <p class="text-lg text-gray-900 font-mono">#<%= @booking.id %></p>
-          </div>
+      <!-- Confirmation Number -->
+      <div style="padding: 2rem; border-bottom: 1px solid #e2e8f0;">
+        <div style="text-align: center; margin-bottom: 1rem;">
+          <div style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8;">Confirmation Number</div>
         </div>
+        <div class="confirmation-number">#<%= @booking.id %></div>
+      </div>
 
-        <!-- Total -->
-        <div class="bg-blue-50 p-4 rounded-lg">
-          <div class="flex justify-between items-center">
-            <p class="text-lg font-semibold text-gray-900">Total Price:</p>
-            <p class="text-3xl font-bold text-blue-600">$<%= @booking.total_price %></p>
-          </div>
+      <!-- Booking Details Grid -->
+      <div class="details-section">
+        <div class="detail-item">
+          <div class="detail-label">🏨 Room</div>
+          <div class="detail-value"><%= @room.name %></div>
+          <div class="detail-subtext">Capacity: <%= @room.capacity %> guest<%= @room.capacity > 1 ? 's' : '' %></div>
         </div>
+        <div class="detail-item">
+          <div class="detail-label">📅 Check-in</div>
+          <div class="detail-value"><%= @booking.check_in.strftime("%b %d") %></div>
+          <div class="detail-subtext"><%= @booking.check_in.strftime("%A, %Y") %></div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">🚪 Check-out</div>
+          <div class="detail-value"><%= @booking.check_out.strftime("%b %d") %></div>
+          <div class="detail-subtext"><%= @booking.check_out.strftime("%A, %Y") %></div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">📆 Duration</div>
+          <div class="detail-value"><%= (@booking.check_out - @booking.check_in).to_i %> nights</div>
+          <div class="detail-subtext">Total stay</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">💰 Per Night</div>
+          <div class="detail-value">$<%= @room.price_per_night %></div>
+          <div class="detail-subtext">Room rate</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">📧 Your Email</div>
+          <div class="detail-value" style="word-break: break-all;"><%= @booking.guest_email %></div>
+          <div class="detail-subtext">Confirmation sent</div>
+        </div>
+      </div>
 
-        <!-- Guest Info -->
-        <div>
-          <p class="text-sm text-gray-600 font-semibold">GUEST EMAIL</p>
-          <p class="text-gray-900"><%= @booking.guest_email %></p>
+      <!-- Total Price -->
+      <div style="padding: 2rem; border-bottom: 1px solid #e2e8f0;">
+        <div class="price-box">
+          <div class="price-label">Total Amount</div>
+          <div class="price-value">$<%= @booking.total_price %></div>
+        </div>
+      </div>
+
+      <!-- Info Box -->
+      <div style="padding: 2rem;">
+        <div class="info-box">
+          <div class="info-box-icon">✉️</div>
+          <div class="info-box-text">
+            A confirmation email with full booking details has been sent to <strong><%= @booking.guest_email %></strong>
+          </div>
         </div>
       </div>
 
       <!-- Actions -->
-      <div class="mt-8 space-y-4">
-        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <p class="text-sm text-blue-900">
-            📧 A confirmation email has been sent to <strong><%= @booking.guest_email %></strong>
-          </p>
-        </div>
-
-        <div class="flex gap-4">
-          <%= link_to 'Back to Home', root_path, class: 'flex-1 bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition text-center' %>
-        </div>
+      <div class="actions-container">
+        <a href="/confirmations" class="btn btn-primary">📋 View All Bookings</a>
+        <a href="/" class="btn btn-secondary">🏠 Back to Home</a>
       </div>
     </div>
 
-    <!-- Voice AI Integration Info -->
-    <div class="mt-8 bg-white rounded-lg shadow p-6">
-      <h3 class="text-lg font-bold text-gray-900 mb-3">🎙️ Voice AI Integration</h3>
-      <p class="text-gray-600 text-sm">
-        This booking was confirmed through the Hotel Booking system. 
-        Voice AI assistants can integrate with our clean JSON APIs to automate this booking flow entirely through voice conversation.
+    <!-- Voice AI Info -->
+    <div class="confirmation-card" style="margin-top: 2rem; padding: 2rem;">
+      <h3 style="font-size: 1.125rem; font-weight: 700; color: #0f172a; margin-bottom: 1rem;">🎙️ Voice AI Integration</h3>
+      <p style="color: #64748b; line-height: 1.6;">
+        This booking was seamlessly confirmed through our hotel booking system. Voice AI assistants can integrate with our REST APIs to automate the entire booking experience through natural conversation.
       </p>
     </div>
-  </main>
+  </div>
 </div>

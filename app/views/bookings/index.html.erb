@@ -1,0 +1,223 @@
+<style>
+  .confirmations-page { background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
+  .booking-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s ease;
+    border: 1px solid #e2e8f0;
+  }
+  .booking-card:hover {
+    box-shadow: 0 12px 24px rgba(79, 70, 229, 0.12);
+    transform: translateY(-2px);
+  }
+  .booking-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+    color: #15803d;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+  .booking-status-badge::before {
+    content: '✓';
+    font-weight: bold;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+  }
+  .info-item {
+    display: flex;
+    flex-direction: column;
+  }
+  .info-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+  }
+  .info-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .price-highlight {
+    color: #4f46e5;
+    font-size: 1.875rem;
+  }
+  .delete-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .delete-btn:hover {
+    background: #fca5a5;
+    border-color: #f87171;
+    transform: scale(1.02);
+  }
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+  }
+  .empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.7;
+  }
+  .page-header {
+    margin-bottom: 3rem;
+  }
+  .header-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+  }
+  .header-subtitle {
+    font-size: 1.125rem;
+    color: #64748b;
+  }
+  .header-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    background: linear-gradient(135deg, #4f46e5, #4338ca);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(79, 70, 229, 0.3);
+  }
+  .divider { height: 1px; background: #e2e8f0; margin: 1.5rem 0; }
+</style>
+
+<div class="confirmations-page min-h-screen py-16 px-6">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <div class="page-header">
+      <h1 class="header-title">✈️ Your Bookings</h1>
+      <p class="header-subtitle">View and manage all your hotel reservations</p>
+      <div class="header-actions">
+        <a href="/" class="btn-primary">← Back to Home</a>
+      </div>
+    </div>
+
+    <!-- Bookings List -->
+    <% if @bookings.any? %>
+      <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+        <% @bookings.each do |booking| %>
+          <div class="booking-card">
+            <div style="padding: 2rem;">
+              <!-- Card Header -->
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+                <div>
+                  <div style="font-size: 0.875rem; color: #64748b; font-weight: 600; margin-bottom: 0.25rem;">Booking ID #<%= booking.id %></div>
+                  <div style="font-size: 1.5rem; font-weight: 700; color: #0f172a;"><%= booking.guest_name %></div>
+                </div>
+                <div class="booking-status-badge">Confirmed</div>
+              </div>
+
+              <div class="divider"></div>
+
+              <!-- Guest & Room Info -->
+              <div class="info-grid">
+                <div class="info-item">
+                  <div class="info-label">📧 Email</div>
+                  <div class="info-value"><%= booking.guest_email %></div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label">🏨 Room</div>
+                  <div class="info-value"><%= booking.room.name %></div>
+                  <div style="font-size: 0.875rem; color: #64748b; margin-top: 0.25rem;">Capacity: <%= booking.room.capacity %> guest<%= booking.room.capacity > 1 ? 's' : '' %></div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label">📍 Check-in</div>
+                  <div class="info-value"><%= booking.check_in.strftime("%b %d") %></div>
+                  <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem;"><%= booking.check_in.strftime("%A") %></div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label">🚪 Check-out</div>
+                  <div class="info-value"><%= booking.check_out.strftime("%b %d") %></div>
+                  <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.25rem;"><%= booking.check_out.strftime("%A") %></div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label">📅 Duration</div>
+                  <div class="info-value"><%= (booking.check_out - booking.check_in).to_i %> nights</div>
+                </div>
+                <div class="info-item">
+                  <div class="info-label">💰 Total Price</div>
+                  <div class="price-highlight">$<%= booking.room.price_per_night * (booking.check_out - booking.check_in).to_i %></div>
+                  <div style="font-size: 0.875rem; color: #64748b; margin-top: 0.25rem;">at $<%= booking.room.price_per_night %>/night</div>
+                </div>
+              </div>
+
+              <div class="divider"></div>
+
+              <!-- Actions -->
+              <div style="display: flex; justify-content: flex-end;">
+                <%= button_to "🗑️ Cancel Booking", booking_path(booking), method: :delete, data: { confirm: "Are you sure you want to cancel this booking?" }, class: "delete-btn" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Summary Stats -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 3rem;">
+        <div class="booking-card" style="padding: 1.5rem; text-align: center;">
+          <div style="font-size: 1.875rem; font-weight: 800; color: #4f46e5;"><%= @bookings.count %></div>
+          <div style="font-size: 0.875rem; color: #64748b; margin-top: 0.5rem;">Total Bookings</div>
+        </div>
+        <div class="booking-card" style="padding: 1.5rem; text-align: center;">
+          <div style="font-size: 1.875rem; font-weight: 800; color: #059669;">
+            <%= @bookings.sum { |b| (b.check_out - b.check_in).to_i } %>
+          </div>
+          <div style="font-size: 0.875rem; color: #64748b; margin-top: 0.5rem;">Total Nights</div>
+        </div>
+        <div class="booking-card" style="padding: 1.5rem; text-align: center;">
+          <div style="font-size: 1.875rem; font-weight: 800; color: #d97706;">
+            $<%= @bookings.sum { |b| b.room.price_per_night * (b.check_out - b.check_in).to_i } %>
+          </div>
+          <div style="font-size: 0.875rem; color: #64748b; margin-top: 0.5rem;">Total Spent</div>
+        </div>
+      </div>
+    <% else %>
+      <div class="booking-card">
+        <div class="empty-state">
+          <div class="empty-icon">📭</div>
+          <h3 style="font-size: 1.5rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">No Bookings Yet</h3>
+          <p style="color: #64748b; font-size: 1rem; margin-bottom: 1.5rem;">Ready to book your perfect room? Let's find you a great stay!</p>
+          <a href="/" class="btn-primary">Browse Rooms</a>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

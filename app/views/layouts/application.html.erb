@@ -17,8 +17,10 @@
             <span class="ml-3 text-sm text-gray-500">Voice AI demo</span>
           </div>
           <nav class="hidden md:flex gap-6 text-sm text-gray-600">
+            <a href="/" class="hover:text-gray-900">Home</a>
             <a href="#rooms" class="hover:text-gray-900">Rooms</a>
             <a href="#booking" class="hover:text-gray-900">Book</a>
+            <a href="/confirmations" class="hover:text-gray-900 font-semibold text-indigo-600">Confirmations</a>
             <a href="/api/rooms" class="hover:text-gray-900">API</a>
           </nav>
         </div>
@@ -30,5 +32,12 @@
         <%= yield %>
       </div>
     </main>
+
+    <!-- Voice AI Widget -->
+    <iframe 
+      src="http://localhost:3001" 
+      style="position: fixed; bottom: 20px; right: 20px; width: 400px; height: 600px; border: none; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); z-index: 9999;"
+      allow="microphone">
+    </iframe>
   </body>
 </html>
