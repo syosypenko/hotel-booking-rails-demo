@@ -4,7 +4,8 @@ A Ruby on Rails demo hotel booking application built to showcase real-world inte
 
 This project simulates a modern hotel website with basic booking functionality and clean APIs that can be consumed by a Voice AI plugin.
 
-<img width="1409" height="721" alt="Screenshot 2026-01-15 at 23 42 28" src="https://github.com/user-attachments/assets/ebfb8739-eba2-4426-a5c9-005fb18df60f" />
+<img width="1412" height="713" alt="Screenshot 2026-01-18 at 02 03 59" src="https://github.com/user-attachments/assets/c2b7e305-72b5-4def-8a40-c5603b8f06aa" />
+
 
 
 ## 🎯 Purpose
